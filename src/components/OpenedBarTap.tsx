@@ -13,7 +13,13 @@ const OpenedBarTap = ({file}:Iprops) => {
   const onRemove=(selectedId:string)=>{
     
     const filtered=openedFile.filter(file=>file.id!==selectedId)
-    const {id,name,content}=filtered[filtered.length-1]
+    const lastTap=filtered[filtered.length-1]
+    if(!lastTap){
+      dispatch(setOpenedFile([]))
+    dispatch(setCilckedFile({activeTapId:null,fileContent:"",filename:""}))
+    return;
+    }
+    const {id,name,content}=lastTap
     dispatch(setOpenedFile(filtered))
     dispatch(setCilckedFile({activeTapId:id,fileContent:content,filename:name}))
     console.log(filtered)
